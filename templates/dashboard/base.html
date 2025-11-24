@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHERE TO GO</title>
+    <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
+    <script defer src="{% static 'dashboard/dashboard.js' %}"></script>
+    <style>
+        :root {
+            --bg-color: {{ palette.bg_color|default:'#0b1021' }};
+            --header-color: {{ palette.header_color|default:'#f5f7fb' }};
+            --card-text: {{ palette.card_text|default:'#e6e9ed' }};
+            --card-overlay: {{ palette.card_overlay|default:'rgba(0,0,0,0.35)' }};
+            --card-open-start: {{ palette.card_open_start|default:'#1c7d36' }};
+            --card-open-end: {{ palette.card_open_end|default:'#0c5a24' }};
+            --card-closed-start: {{ palette.card_closed_start|default:'#b81d13' }};
+            --card-closed-end: {{ palette.card_closed_end|default:'#8b0000' }};
+            --card-zone-start: {{ palette.card_zone_start|default:'#1565c0' }};
+            --card-zone-end: {{ palette.card_zone_end|default:'#0d47a1' }};
+            --card-border: {{ palette.card_border|default:'#0a0c12' }};
+            --important-border: {{ palette.important_border|default:'#ff2d2d' }};
+            --button-bg: {{ palette.button_bg|default:'#1e2538' }};
+            --button-text: {{ palette.button_text|default:'#f2f4f8' }};
+            --input-bg: {{ palette.input_bg|default:'#111728' }};
+            --input-text: {{ palette.input_text|default:'#e2e5ee' }};
+        }
+    </style>
+</head>
+<body>
+<header class="page-header">
+    <h1>WHERE TO GO</h1>
+    {% block header_extra %}{% endblock %}
+</header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

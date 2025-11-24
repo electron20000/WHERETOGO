@@ -1,0 +1,11 @@
+{% extends 'dashboard/base.html' %}
+
+{% block header_extra %}
+    <div id="last-updated" data-current-timestamp="{{ timestamp }}">Ostatnia aktualizacja: <span class="timestamp-value">{{ timestamp }}</span></div>
+{% endblock %}
+
+{% block content %}
+<section id="cards-container" data-refresh-url="{% url 'dashboard_fragment' %}" data-timestamp="{{ timestamp }}">
+    {% include 'dashboard/cards_fragment.html' %}
+</section>
+{% endblock %}

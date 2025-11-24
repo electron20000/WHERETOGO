@@ -1,0 +1,92 @@
+{% extends 'dashboard/base.html' %}
+{% load static dashboard_extras %}
+{% block body_class %}leader-page{% endblock %}
+
+{% block header_extra %}
+    <a class="back-link" href="{% url 'dashboard' %}">Podgląd tablicy</a>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="leader-form">
+    {% csrf_token %}
+    <h2 class="panel-title">Sterowanie komunikatami</h2>
+    <section class="locations-control">
+        {% for location in locations %}
+            {% with loc_form=location_forms|get_item:location.slug %}
+                {% with loc_formset=formsets|get_item:location.slug %}
+                    <div class="location-block">
+                        <div class="location-heading">{{ location.name }}</div>
+                        <label class="switch">
+                            {{ loc_form.is_closed }}
+                            <span>Zamknięte</span>
+                        </label>
+                        <div class="formset" data-formset-prefix="{{ loc_formset.prefix }}">
+                            {{ loc_formset.management_form }}
+                            {% for form in loc_formset.forms %}
+                                <div class="message-form">
+                                    <div class="field">{{ form.text.label_tag }}{{ form.text }}</div>
+                                    <div class="toggles">
+                                        <label class="switch">{{ form.is_active }}<span>Aktywny</span></label>
+                                        <label class="switch">{{ form.is_important }}<span>Ważne</span></label>
+                                        {% if form.can_delete %}
+                                            <label class="switch">{{ form.DELETE }}<span>Usuń</span></label>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <template class="empty-form" data-prefix="{{ loc_formset.prefix }}">
+                                <div class="message-form">
+                                    <div class="field">{{ loc_formset.empty_form.text.label_tag }}{{ loc_formset.empty_form.text }}</div>
+                                    <div class="toggles">
+                                        <label class="switch">{{ loc_formset.empty_form.is_active }}<span>Aktywny</span></label>
+                                        <label class="switch">{{ loc_formset.empty_form.is_important }}<span>Ważne</span></label>
+                                        {% if loc_formset.empty_form.can_delete %}
+                                            <label class="switch">{{ loc_formset.empty_form.DELETE }}<span>Usuń</span></label>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </template>
+                            <button type="button" class="add-form" data-prefix="{{ loc_formset.prefix }}">Dodaj komunikat</button>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endwith %}
+        {% endfor %}
+    </section>
+
+    <section class="appearance-settings">
+        <div class="section-header">
+            <h2>USTAWIENIA GRAFICZNE</h2>
+            <button type="button" id="open-preview">Podgląd</button>
+        </div>
+        <div class="orientation-setting">
+            {{ appearance_form.orientation.label_tag }}
+            <div class="orientation-options">{{ appearance_form.orientation }}</div>
+        </div>
+        <div class="appearance-fields" hidden>
+            {% for field in appearance_form %}
+                {% if field.name != 'orientation' %}
+                    <div class="appearance-field">
+                        {{ field.label_tag }}{{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div id="preview-area" class="preview-area" hidden data-preview-url="{% url 'appearance_preview' %}"></div>
+    </section>
+
+    <div class="actions">
+        <button type="submit" class="primary">Zapisz zmiany</button>
+    </div>
+</form>
+
+<div id="color-modal" class="color-modal" hidden>
+    <div class="color-modal__content">
+        <h3>Wybierz kolor</h3>
+        <input type="color" id="modal-color-picker" value="#ffffff">
+        <div class="modal-actions">
+            <button type="button" id="close-color-modal">Zamknij</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

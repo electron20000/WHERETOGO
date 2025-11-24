@@ -1,0 +1,30 @@
+{% load dashboard_extras %}
+<div class="cards">
+    {% for location in locations %}
+        {% with announcements_list=announcements|get_item:location.slug %}
+            <article class="info-card {% if location.is_closed %}closed{% elif location.slug == 'strefy' %}zone{% else %}open{% endif %}" data-location="{{ location.slug }}">
+                <div class="gradient"></div>
+                <div class="card-overlay"></div>
+                <div class="card-body">
+                    <div class="card-title">{{ location.name }}</div>
+                    {% if location.is_closed %}
+                        <div class="card-status">Zamknięte</div>
+                    {% else %}
+                        <ul class="announcement-list">
+                            {% if announcements_list and announcements_list|length %}
+                                {% for announcement in announcements_list %}
+                                    <li class="announcement {% if announcement.is_important %}important{% endif %}">
+                                        <span class="text">{{ announcement.text }}</span>
+                                        {% if announcement.is_important %}<span class="badge">Ważne</span>{% endif %}
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li class="empty">Brak aktywnych komunikatów.</li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </article>
+        {% endwith %}
+    {% endfor %}
+</div>

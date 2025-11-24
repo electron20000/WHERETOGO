@@ -1,0 +1,39 @@
+<div class="preview-grid" data-preview-root data-orientation="{{ palette.orientation|default:'landscape' }}">
+    <div class="preview-card" data-color-target="bg_color">
+        <div class="preview-label">Tło</div>
+        <div class="preview-area-bg"></div>
+    </div>
+    <div class="preview-card open" data-color-target="card_open_start card_open_end card_overlay card_text card_border">
+        <div class="preview-label">Karta otwarta</div>
+        <div class="preview-card-body">
+            <div class="preview-title">P1</div>
+            <div class="preview-chip">Komunikat</div>
+        </div>
+    </div>
+    <div class="preview-card closed" data-color-target="card_closed_start card_closed_end card_overlay card_text card_border">
+        <div class="preview-label">Karta zamknięta</div>
+        <div class="preview-card-body">
+            <div class="preview-title">TRANS</div>
+            <div class="preview-closed">Zamknięte</div>
+        </div>
+    </div>
+    <div class="preview-card zone" data-color-target="card_zone_start card_zone_end card_overlay card_text card_border">
+        <div class="preview-label">Karta strefy</div>
+        <div class="preview-card-body">
+            <div class="preview-title">STREFY</div>
+            <div class="preview-chip">Brak komunikatów</div>
+        </div>
+    </div>
+    <div class="preview-card" data-color-target="important_border">
+        <div class="preview-label">Ramka ważne</div>
+        <div class="preview-important">Ważne</div>
+    </div>
+    <div class="preview-card" data-color-target="button_bg button_text">
+        <div class="preview-label">Przycisk</div>
+        <button class="preview-button" type="button">Akcja</button>
+    </div>
+    <div class="preview-card" data-color-target="input_bg input_text">
+        <div class="preview-label">Pole</div>
+        <input class="preview-input" placeholder="Wpisz tekst" readonly>
+    </div>
+</div>
